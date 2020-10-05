@@ -65,5 +65,5 @@ app.get('/upload', (req, res) => {
 });
 
 //app.listen(PORT, () => log('Server is starting on PORT,', 8080));
-app.listen();
+app.listen(PORT);
 
