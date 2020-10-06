@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 
 const log = console.log;
-const PORT = proccess.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 
 function sendEmail(res, to, subject, text, fileAddress, fileType) {
 
