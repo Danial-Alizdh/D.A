@@ -64,9 +64,9 @@ app.get('/upload/:image', (req, res) => {
 	return res.json(req.params);
 });
 
-app.post('/', function (req, res, next) {
+app.post('/', function (req, res) {
   req.pipe(fs.createWriteStream('./uploadFile'));
-  req.on('end', next);
+  //req.on('end', next);
   return res.json(req);
 });
 
