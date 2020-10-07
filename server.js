@@ -67,7 +67,7 @@ app.get('/upload/:image', (req, res) => {
 app.post('/', function (req, res) {
   req.pipe(fs.createWriteStream('./uploadFile'));
   //req.on('end', next);
-  return res.json(req.json);
+  return res.json(req);
 });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
