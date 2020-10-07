@@ -59,7 +59,7 @@ app.get('/sendemail/:to/:subject/:text/:fileAddress?/:fileType?',
 		sendEmail(res, req.params.to, req.params.subject, req.params.text);
 });
 
-app.get('/upload', (req, res) => {
+app.get('/upload/:image', (req, res) => {
 	return res.json(req.params);
 });
 
