@@ -60,8 +60,7 @@ app.get('/sendemail/:to/:subject/:text/:fileAddress?/:fileType?',
 });
 
 app.get('/upload', (req, res) => {
-	console.log("req : " + req);
-	console.log("res : " + res);
+	return res.json(req.params);
 });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
