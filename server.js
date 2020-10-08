@@ -62,15 +62,15 @@ app.get('/sendemail/:to/:subject/:text/:fileAddress?/:fileType?',
 		sendEmail(res, req.params.to, req.params.subject, req.params.text);
 });
 
-/*app.get('/upload/:image', (req, res) => {
-	return res.json(req.params);
-});*/
+// app.get('/upload/:image', (req, res) => {
+// 	return res.json(req.params);
+// });
 
-app.post('/', function (req, res) {
-  //var file = req.pipe(fs.createWriteStream('./uploadFile'));
-  //req.on('end', next);
-  return res.json({message : req.json('image')});
-});
+// app.post('/', function (req, res) {
+//   //var file = req.pipe(fs.createWriteStream('./uploadFile'));
+//   //req.on('end', next);
+//   return res.json({message : req.json('image')});
+// });
 
 storage = multer.diskStorage({
     destination: './uploads/',
