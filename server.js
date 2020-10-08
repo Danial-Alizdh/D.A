@@ -43,10 +43,10 @@ function sendEmail(res, to, subject, text, fileAddress, fileType) {
 	{
 		if (error) {
 			console.log(error);
-			return res.json('400');
+			return res.json({error : "400"});
  		 } else {
 			console.log('Email sent: ' + info.response);
- 			return res.json('200');
+ 			return res.json({success : "200"});
  		 }
 	});
 }
