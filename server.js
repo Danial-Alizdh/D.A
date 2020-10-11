@@ -5,7 +5,7 @@ const path = require('path');
 const multer = require('multer');
 const crypto = require('crypto');
 const Blob = require('node-blob');
-const File = require('file-api')
+const FileAPI = require('file-api')
 const app = express();
 
 app.use(express.json());
