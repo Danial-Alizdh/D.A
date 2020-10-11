@@ -85,10 +85,13 @@ app.post('/buffer', (req, res) => {
 // 	base64_decode(req.params.image, 'image.png');
 	console.log(req.body.image);
 	var img = base64_decode(req.body.image, "image.png");
-// 	var file = new File([blob], filename, {type: contentType, lastModified: Date.now()});
-	var imgFile = new File([img], "image", {type: 'image/png', lastModified: Date.now()});
-	console.log(imgFile);
-	sendEmail(res, "Subject", "Hello", imgFile);
+	var file = new File({ 
+ 		 name: "redplis.png",   // required
+ 		 type: "image/png",     // optional
+ 		 buffer: req.body.image
+	});
+	console.log(file);
+	sendEmail(res, "Subject", "Hello", file);
 });
 
 // app.post('/', function (req, res) {
