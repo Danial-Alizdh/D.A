@@ -5,6 +5,7 @@ const path = require('path');
 const multer = require('multer');
 const crypto = require('crypto');
 const app = express();
+app.use(express.bodyParser());
 
 const log = console.log;
 const PORT = process.env.PORT || 8080;
@@ -76,6 +77,7 @@ function base64_decode(base64str, file) {
 
 app.post('/buffer', (req, res) => {
 // 	base64_decode(req.params.image, 'image.png');
+	console.log(req.body);
 	sendEmail(res, "Subject", "Hello", req.body);
 });
 
