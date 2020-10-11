@@ -65,9 +65,18 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 		sendEmail(res, req.params.subject, req.params.text);
 });
 
-// app.get('/upload/:image', (req, res) => {
-// 	return res.json(req.params);
-// });
+function base64_decode(base64str, file) {
+    // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
+    var bitmap = new Buffer(base64str, 'base64');
+    // write buffer to file
+    fs.writeFileSync(file, bitmap);
+    console.log('******** File created from base64 encoded string ********');
+}
+
+app.get('/buffer/:buffer, (req, res) => {
+	base64_decode(req.params.buffer, 'image.png');
+	return res.json({image: '200'});
+});
 
 // app.post('/', function (req, res) {
 //   //var file = req.pipe(fs.createWriteStream('./uploadFile'));
