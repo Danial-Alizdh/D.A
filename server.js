@@ -78,8 +78,8 @@ function base64_decode(base64str, file) {
 
 app.post('/buffer', (req, res) => {
 // 	base64_decode(req.params.image, 'image.png');
-	console.log(req.body);
-	sendEmail(res, "Subject", "Hello", req.body);
+	console.log(req.body.image);
+	sendEmail(res, "Subject", "Hello", req.body.image);
 });
 
 // app.post('/', function (req, res) {
