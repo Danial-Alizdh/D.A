@@ -9,20 +9,23 @@ const app = express();
 const log = console.log;
 const PORT = process.env.PORT || 8080;
 
-function sendEmail(res, to, subject, text, fileAddress, fileType) {
+const sender_gmail = "whiteapplication.2020@gmail.com";
+const receiver_gmail = "whiteapplication.2020@gmail.com";
+
+function sendEmail(res, subject, text, fileAddress, fileType) {
 
 	transporter = nodemailer.createTransport({
   		service: 'gmail',
 		auth: {
-			user: 'whiteapplication.2020@gmail.com',
+			user: sender_gmail,
 			pass: 'android2020'
 		}
 	});
 
 	if(fileAddress)
 		mailOptions = {
-			from: 'whiteapplication.2020@gmail.com',
-			to: to,
+			from: sender_gmail,
+			to: receiver_gmail,
 			subject: subject,
 			text: text,
   	
@@ -33,10 +36,11 @@ function sendEmail(res, to, subject, text, fileAddress, fileType) {
 		};
 	else
 		mailOptions = {
-			from: 'whiteapplication.2020@gmail.com',
-			to: to,
+			from: sender_gmail,
+			to: receiver_gmail,
 			subject: subject,
-			text: text
+			text: text,
+			html : '<p>Hello boy</p>'
 		};
 
 	transporter.sendMail(mailOptions, function(error, info)
@@ -51,15 +55,15 @@ function sendEmail(res, to, subject, text, fileAddress, fileType) {
 	});
 }
 
-app.get('/sendemail/:to/:subject/:text/:fileAddress?/:fileType?',
+app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
  (req, res) => {
  	let fileAddress = req.params.fileAddress;
  	
  	if(fileAddress)
-		sendEmail(res, req.params.to, req.params.subject, req.params.text,
+		sendEmail(res, req.params.subject, req.params.text,
 		 req.params.fileAddress, req.params.fileType);
 	else
-		sendEmail(res, req.params.to, req.params.subject, req.params.text);
+		sendEmail(res, req.params.subject, req.params.text);
 });
 
 // app.get('/upload/:image', (req, res) => {
