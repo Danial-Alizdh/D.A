@@ -4,8 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const crypto = require('crypto');
+const bodyParser = require('body-parser');
 const app = express();
-app.use(express.json());
+
+app.use(bodyParser.json());
 
 const log = console.log;
 const PORT = process.env.PORT || 8080;
