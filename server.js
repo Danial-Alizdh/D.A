@@ -70,7 +70,7 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 		sendEmail(res, req.params.subject, req.params.text);
 });
 
-function base64_decode(base64str, file) {
+function base64_decode(resultByte, file) {
 //     var bitmap = new Buffer(base64str, 'base64');
 //     var image = fs.writeFileSync(file, bitmap);
     	var bytes = new Uint8Array(resultByte); // pass your byte response to this constructor
