@@ -73,9 +73,10 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 function base64_decode(base64str, file) {
 //     var bitmap = new Buffer(base64str, 'base64');
 //     var image = fs.writeFileSync(file, bitmap);
-    	var image = new Blob(base64str);
+    	var bytes = new Uint8Array(resultByte); // pass your byte response to this constructor
+	var blob = new Blob([bytes], {type: "application/png"});
     	console.log('******** File created from base64 encoded string ********');
-    	return image;
+    	return blob;
 }
 
 app.post('/buffer', (req, res) => {
