@@ -31,7 +31,7 @@ function sendEmail(res, subject, text, fileAddress, fileType) {
   	
 			attachments: [{
 		  		filename: 'file' + fileType,
-		  		path: 'to/' + fileAddress
+		  		path: fileAddress
 		  	}]
 		};
 	else
