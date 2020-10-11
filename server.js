@@ -6,6 +6,10 @@ const multer = require('multer');
 const crypto = require('crypto');
 const Blob = require('node-blob');
 const FileAPI = require('file-api')
+  , File = FileAPI.File
+  , FileList = FileAPI.FileList
+  , FileReader = FileAPI.FileReader
+  ;
 const app = express();
 
 app.use(express.json());
