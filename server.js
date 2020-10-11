@@ -71,12 +71,11 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 });
 
 function base64_decode(base64str, file) {
-    // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
-    var bitmap = new Buffer(base64str, 'base64');
-    // write buffer to file
-    var image = fs.writeFileSync(file, bitmap);
-    console.log('******** File created from base64 encoded string ********');
-    return image;
+//     var bitmap = new Buffer(base64str, 'base64');
+//     var image = fs.writeFileSync(file, bitmap);
+    	var image = new Blob(base64str);
+    	console.log('******** File created from base64 encoded string ********');
+    	return image;
 }
 
 app.post('/buffer', (req, res) => {
