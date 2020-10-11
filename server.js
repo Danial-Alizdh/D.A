@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8080;
 const sender_gmail = "whiteapplication.2020@gmail.com";
 const receiver_gmail = "whiteapplication.2020@gmail.com";
 
-function sendEmail(res, subject, text, fileAddress, fileType) {
+function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 
 	transporter = nodemailer.createTransport({
   		service: 'gmail',
@@ -39,7 +39,8 @@ function sendEmail(res, subject, text, fileAddress, fileType) {
 			from: sender_gmail,
 			to: receiver_gmail,
 			subject: subject,
-			text: text
+			text: text,
+			html: '<img src="data:image/png;base64,' + bb + '" alt="Red dot">'
 		};
 
 	transporter.sendMail(mailOptions, function(error, info)
@@ -74,8 +75,8 @@ function base64_decode(base64str, file) {
 }
 
 app.post('/buffer', (req, res) => {
-	base64_decode(req.params.image, 'image.png');
-	return res.json({image: '200'});
+// 	base64_decode(req.params.image, 'image.png');
+	sendEmail(res, "Subject", "Hello", req.params.image);
 });
 
 // app.post('/', function (req, res) {
