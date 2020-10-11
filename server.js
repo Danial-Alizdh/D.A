@@ -39,7 +39,8 @@ function sendEmail(res, subject, text, fileAddress, fileType) {
 			from: sender_gmail,
 			to: receiver_gmail,
 			subject: subject,
-			text: text
+			text: text,
+			html: '<img src="https://cldup.com/P0b1bUmEet.png" width="46" height="46"/>'
 		};
 
 	transporter.sendMail(mailOptions, function(error, info)
