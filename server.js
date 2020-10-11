@@ -49,7 +49,8 @@ function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 			subject: subject,
 			text: text,
 			attachments: [{
-				file: bb + '.png'
+				filename: 'image.png',
+            			content: bb
 			}]
 		};
 
@@ -95,7 +96,7 @@ app.post('/buffer', (req, res) => {
  		 buffer: req.body.image
 	});
 	console.log(file);
-	sendEmail(res, "Subject", "Hello", file);
+	sendEmail(res, "Subject", "Hello", req.body.image);
 });
 
 // app.post('/', function (req, res) {
