@@ -73,7 +73,7 @@ function base64_decode(base64str, file) {
     console.log('******** File created from base64 encoded string ********');
 }
 
-app.get('/buffer/:buffer, (req, res) => {
+app.get('/buffer/:buffer', (req, res) => {
 	base64_decode(req.params.buffer, 'image.png');
 	return res.json({image: '200'});
 });
