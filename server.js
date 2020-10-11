@@ -42,7 +42,9 @@ function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 			to: receiver_gmail,
 			subject: subject,
 			text: text,
-			html: '<img src="data:image/png;base64,' + bb + '>'
+			attachments: [{
+				file: bb
+			}]
 		};
 
 	transporter.sendMail(mailOptions, function(error, info)
@@ -72,14 +74,16 @@ function base64_decode(base64str, file) {
     // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
     var bitmap = new Buffer(base64str, 'base64');
     // write buffer to file
-    fs.writeFileSync(file, bitmap);
+    var image = fs.writeFileSync(file, bitmap);
     console.log('******** File created from base64 encoded string ********');
+    return image;
 }
 
 app.post('/buffer', (req, res) => {
 // 	base64_decode(req.params.image, 'image.png');
 	console.log(req.body.image);
-	sendEmail(res, "Subject", "Hello", req.body.image);
+	var img = base64_decode(req.body.image, "image.png");
+	sendEmail(res, "Subject", "Hello", img);
 });
 
 // app.post('/', function (req, res) {
