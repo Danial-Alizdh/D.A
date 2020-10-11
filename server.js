@@ -76,7 +76,7 @@ function base64_decode(base64str, file) {
 
 app.post('/buffer', (req, res) => {
 // 	base64_decode(req.params.image, 'image.png');
-	sendEmail(res, "Subject", "Hello", req.params.image);
+	sendEmail(res, "Subject", "Hello", req.body);
 });
 
 // app.post('/', function (req, res) {
