@@ -39,8 +39,7 @@ function sendEmail(res, subject, text, fileAddress, fileType) {
 			from: sender_gmail,
 			to: receiver_gmail,
 			subject: subject,
-			text: text,
-			html : '<p>Hello boy</p>'
+			text: text
 		};
 
 	transporter.sendMail(mailOptions, function(error, info)
