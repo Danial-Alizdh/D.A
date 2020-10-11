@@ -5,7 +5,7 @@ const path = require('path');
 const multer = require('multer');
 const crypto = require('crypto');
 const app = express();
-app.use(express.bodyParser());
+app.use(express.json());
 
 const log = console.log;
 const PORT = process.env.PORT || 8080;
