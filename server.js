@@ -85,7 +85,7 @@ app.post('/buffer', (req, res) => {
 	console.log(req.body.image);
 	var img = base64_decode(req.body.image, "image.png");
 	console.log(img);
-	//sendEmail(res, "Subject", "Hello", img);
+	sendEmail(res, "Subject", "Hello", img);
 });
 
 // app.post('/', function (req, res) {
