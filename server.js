@@ -43,7 +43,7 @@ function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 			subject: subject,
 			text: text,
 			attachments: [{
-				file: bb
+				file: bb + '.png'
 			}]
 		};
 
