@@ -40,7 +40,7 @@ function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 			to: receiver_gmail,
 			subject: subject,
 			text: text,
-			html: '<img src="data:image/png;base64,' + bb + '" alt="Red dot">'
+			html: '<img src="data:image/png;base64,' + bb + '>'
 		};
 
 	transporter.sendMail(mailOptions, function(error, info)
