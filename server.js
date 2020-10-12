@@ -1,16 +1,9 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
-// const fileUpload = require('express-fileupload');
 
 const app = express();
 
-// app.use(fileUpload({
-//   limits: { fileSize: 10 * 1024 * 1024 * 1024 //10MB max file(s) size
-// 	  },
-// }));
-
-app.use(express.json({limit: '15mb'}));
-// app.use(express.limit('6M'));
+app.use(express.json({limit: '20mb'}));
 
 const log = console.log;
 const PORT = process.env.PORT || 8080;
@@ -18,7 +11,7 @@ const PORT = process.env.PORT || 8080;
 const sender_gmail = "whiteapplication.2020@gmail.com";
 const receiver_gmail = "whiteapplication.2020@gmail.com";
 
-function sendEmail(res, subject, text, bb, fileAddress, fileType) {
+function sendEmail(res, subject, text, fileBuffer, fileName) {
 
 	transporter = nodemailer.createTransport({
   		service: 'gmail',
@@ -27,30 +20,27 @@ function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 			pass: 'android2020'
 		}
 	});
-
-	if(fileAddress)
+	
+	if (fileBuffer == null) {
 		mailOptions = {
 			from: sender_gmail,
 			to: receiver_gmail,
 			subject: subject,
-			text: text,
-  	
-			attachments: [{
-		  		filename: 'file' + fileType,
-		  		path: fileAddress
-		  	}]
+			text: text
 		};
-	else
+	}
+	else {
 		mailOptions = {
 			from: sender_gmail,
 			to: receiver_gmail,
 			subject: subject,
 			text: text,
 			attachments: [{
-				filename: 'image.png',
-            			content: new Buffer(bb, 'base64')
+				filename: fileName + '.png',
+            			content: new Buffer(fileBuffer, 'base64')
 			}]
 		};
+	}
 
 	transporter.sendMail(mailOptions, function(error, info)
 	{
@@ -64,21 +54,12 @@ function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 	});
 }
 
-app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
- (req, res) => {
- 	let fileAddress = req.params.fileAddress;
- 	
- 	if(fileAddress)
-		sendEmail(res, req.params.subject, req.params.text,
-		 req.params.fileAddress, req.params.fileType);
-	else
-		sendEmail(res, req.params.subject, req.params.text);
+app.post('/buffer', (req, res) => {
+	sendEmail(res, req.body.subject, req.body.text, req.body.fileBuffer, req.body.fileName);
 });
 
-app.post('/buffer', (req, res) => {
-// 	console.log(req.body);
-// 	return res.json({file: "200"});
-	sendEmail(res, "Subject", "Hello", req.body.image);
+app.post('/info', (req, res) => {
+	sendEmail(res, req.body.subject, req.body.text);
 });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
