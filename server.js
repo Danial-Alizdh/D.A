@@ -5,7 +5,7 @@ const fileUpload = require('express-fileupload');
 const app = express();
 
 app.use(fileUpload({
-  limits: { fileSize: 5 * 1024 * 1024 * 1024 //5MB max file(s) size
+  limits: { fileSize: 10 * 1024 * 1024 * 1024 //10MB max file(s) size
 	  },
 }));
 
@@ -75,7 +75,8 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 });
 
 app.post('/buffer', (req, res) => {
-	console.log(req.file);
+	console.log(req.body);
+	return res.json({file: "200"});
 	//sendEmail(res, "Subject", "Hello", req.body.image);
 });
 
