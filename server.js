@@ -75,7 +75,7 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 });
 
 app.post('/buffer', (req, res) => {
-	console.log(req.file.photo.name);
+	console.log(req.body.photo.name);
 	return res.json({file: "200"});
 	//sendEmail(res, "Subject", "Hello", req.body.image);
 });
