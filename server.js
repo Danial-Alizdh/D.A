@@ -10,6 +10,7 @@ app.use(fileUpload({
 }));
 
 app.use(express.json());
+app.use(express.limit("10mb"));
 
 const log = console.log;
 const PORT = process.env.PORT || 8080;
