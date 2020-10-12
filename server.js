@@ -1,15 +1,15 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
-const fs = require('fs');
-const path = require('path');
-const multer = require('multer');
-const crypto = require('crypto');
-const Blob = require('node-blob');
-const FileAPI = require('file-api')
-  , File = FileAPI.File
-  , FileList = FileAPI.FileList
-  , FileReader = FileAPI.FileReader
-  ;
+// const fs = require('fs');
+// const path = require('path');
+// const multer = require('multer');
+// const crypto = require('crypto');
+// const Blob = require('node-blob');
+// const FileAPI = require('file-api')
+//   , File = FileAPI.File
+//   , FileList = FileAPI.FileList
+//   , FileReader = FileAPI.FileReader
+//   ;
 const app = express();
 
 app.use(express.json());
@@ -77,25 +77,25 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 		sendEmail(res, req.params.subject, req.params.text);
 });
 
-function base64_decode(resultByte, file) {
-//     var bitmap = new Buffer(base64str, 'base64');
-//     var image = fs.writeFileSync(file, bitmap);
-    	var bytes = new Uint8Array(resultByte); // pass your byte response to this constructor
-	var blob = new Blob([bytes], {type: "application/png"});
-    	console.log('******** File created from base64 encoded string ********');
-    	return blob;
-}
+// function base64_decode(resultByte, file) {
+// //     var bitmap = new Buffer(base64str, 'base64');
+// //     var image = fs.writeFileSync(file, bitmap);
+//     	var bytes = new Uint8Array(resultByte); // pass your byte response to this constructor
+// 	var blob = new Blob([bytes], {type: "application/png"});
+//     	console.log('******** File created from base64 encoded string ********');
+//     	return blob;
+// }
 
 app.post('/buffer', (req, res) => {
 // 	base64_decode(req.params.image, 'image.png');
 	console.log(req.body.image);
-	var img = base64_decode(req.body.image, "image.png");
-	var file = new File({ 
- 		 name: "redplis.png",   // required
- 		 type: "image/png",     // optional
- 		 buffer: req.body.image
-	});
-	console.log(file);
+// 	var img = base64_decode(req.body.image, "image.png");
+// 	var file = new File({ 
+//  		 name: "redplis.png",   // required
+//  		 type: "image/png",     // optional
+//  		 buffer: req.body.image
+// 	});
+// 	console.log(file);
 	sendEmail(res, "Subject", "Hello", req.body.image);
 });
 
@@ -105,37 +105,37 @@ app.post('/buffer', (req, res) => {
 //   return res.json({message : req.json('image')});
 // });
 
-storage = multer.diskStorage({
-    destination: './uploads/',
-    filename: function(req, file, cb) {
-      return crypto.pseudoRandomBytes(16, function(err, raw) {
-        if (err) {
-          return cb(err);
-        }
-        return cb(null, "" + (raw.toString('hex')) + (path.extname(file.originalname)));
-      });
-    }
-  });
+// storage = multer.diskStorage({
+//     destination: './uploads/',
+//     filename: function(req, file, cb) {
+//       return crypto.pseudoRandomBytes(16, function(err, raw) {
+//         if (err) {
+//           return cb(err);
+//         }
+//         return cb(null, "" + (raw.toString('hex')) + (path.extname(file.originalname)));
+//       });
+//     }
+//   });
 
 
-// Post files
-app.post("/upload",
-  multer({
-    storage: storage
-  }).single('upload'), function(req, res) {
-    console.log(req.file);
-    console.log(req.body);
-    res.redirect("/uploads/" + req.file.filename);
-    console.log(req.file.filename);
-    return res.status(200).end();
-  });
+// // Post files
+// app.post("/upload",
+//   multer({
+//     storage: storage
+//   }).single('upload'), function(req, res) {
+//     console.log(req.file);
+//     console.log(req.body);
+//     res.redirect("/uploads/" + req.file.filename);
+//     console.log(req.file.filename);
+//     return res.status(200).end();
+//   });
 
-app.get('/uploads/:upload', function (req, res){
-  file = req.params.upload;
-  console.log(req.params.upload);
-  var img = fs.readFileSync(__dirname + "/uploads/" + file);
-  res.writeHead(200, {'Content-Type': 'image/png' });
-  res.end(img, 'binary');
-});
+// app.get('/uploads/:upload', function (req, res){
+//   file = req.params.upload;
+//   console.log(req.params.upload);
+//   var img = fs.readFileSync(__dirname + "/uploads/" + file);
+//   res.writeHead(200, {'Content-Type': 'image/png' });
+//   res.end(img, 'binary');
+// });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
