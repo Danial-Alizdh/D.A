@@ -50,7 +50,7 @@ function sendEmail(res, subject, text, bb, fileAddress, fileType) {
 			text: text,
 			attachments: [{
 				filename: 'image.png',
-            			content: bb
+            			content: new Buffer(bb, 'base64')
 			}]
 		};
 
