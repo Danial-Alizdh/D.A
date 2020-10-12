@@ -1,13 +1,13 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 
 const app = express();
 
-app.use(fileUpload({
-  limits: { fileSize: 10 * 1024 * 1024 * 1024 //10MB max file(s) size
-	  },
-}));
+// app.use(fileUpload({
+//   limits: { fileSize: 10 * 1024 * 1024 * 1024 //10MB max file(s) size
+// 	  },
+// }));
 
 app.use(express.json({limit: '15mb'}));
 // app.use(express.limit('6M'));
@@ -76,9 +76,9 @@ app.get('/sendemail/:subject/:text/:fileAddress?/:fileType?',
 });
 
 app.post('/buffer', (req, res) => {
-	console.log(req.body);
-	return res.json({file: "200"});
-	//sendEmail(res, "Subject", "Hello", req.body.image);
+// 	console.log(req.body);
+// 	return res.json({file: "200"});
+	sendEmail(res, "Subject", "Hello", req.body.image);
 });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
