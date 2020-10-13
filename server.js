@@ -59,7 +59,7 @@ function sendEmail(res, subject, text, fileBuffer, fileName) {
 }
 
 app.post('/buffer', (req, res) => {
-	console.log('Image received: ' + req.body.fileNme);
+	console.log('Image received: ' + req.body.fileName);
 	sendEmail(res, req.body.subject, req.body.text, req.body.fileBuffer, req.body.fileName);
 });
 
