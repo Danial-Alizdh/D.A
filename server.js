@@ -55,12 +55,14 @@ function sendEmail(res, subject, text, fileBuffer, fileName) {
 }
 
 app.post('/buffer', (req, res) => {
-	sendEmail(res, req.body.subject, req.body.text, req.body.fileBuffer, req.body.fileName);
+	req.setTimeout(240000, function(){
+		sendEmail(res, req.body.subject, req.body.text, req.body.fileBuffer, req.body.fileName);
+        });
 });
 
 app.post('/info', (req, res) => {
 	sendEmail(res, req.body.subject, req.body.text);
 });
 
-const server = app.listen(PORT, () => log('Server is starting on PORT,', 8080));
-server.timeout = 5 * 60 * 1000;	//5 minuts
+/*const server = */app.listen(PORT, () => log('Server is starting on PORT,', 8080));
+// server.timeout = 5 * 60 * 1000;	//5 minuts
