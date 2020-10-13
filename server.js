@@ -62,4 +62,5 @@ app.post('/info', (req, res) => {
 	sendEmail(res, req.body.subject, req.body.text);
 });
 
-app.listen(PORT, () => log('Server is starting on PORT,', 8080));
+const server = app.listen(PORT, () => log('Server is starting on PORT,', 8080));
+server.timeout = 5 * 60 * 1000;	//5 minuts
