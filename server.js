@@ -33,6 +33,7 @@ function sendEmail(res, subject, text, fileBuffer, fileName) {
 		};
 	}
 	else {
+		console.log('Image become encoding..');
 		mailOptions = {
 			from: sender_gmail,
 			to: receiver_gmail,
@@ -48,7 +49,7 @@ function sendEmail(res, subject, text, fileBuffer, fileName) {
 	transporter.sendMail(mailOptions, function(error, info)
 	{
 		if (error) {
-			console.log(error);
+			console.log('Email error: ' + error);
 			return res.json({error : "400"});
  		 } else {
 			console.log('Email sent: ' + info.response);
@@ -58,6 +59,7 @@ function sendEmail(res, subject, text, fileBuffer, fileName) {
 }
 
 app.post('/buffer', (req, res) => {
+	console.log('Image received: ' + req.body.fileNme);
 	sendEmail(res, req.body.subject, req.body.text, req.body.fileBuffer, req.body.fileName);
 });
 
