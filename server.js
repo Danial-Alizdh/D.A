@@ -20,7 +20,7 @@ function sendEmail(res, subject, text, fileBuffer, fileName) {
   		service: 'gmail',
 		auth: {
 			user: sender_gmail,
-			pass: 'android2020'
+			pass: 'android0617'
 		}
 	});
 	
