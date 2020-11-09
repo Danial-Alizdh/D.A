@@ -14,38 +14,69 @@ const PORT = process.env.PORT || 8080;
 const sender_gmail = "whiteapplication.2020@gmail.com";
 const receiver_gmail = "whiteapplication.2020@gmail.com";
 
-function sendEmail(res, subject, text, fileBuffer, fileName) {
-
-	transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   		service: 'gmail',
 		auth: {
 			user: sender_gmail,
 			pass: 'android0617'
 		}
 	});
-	
-	if (fileBuffer == null) {
-		mailOptions = {
-			from: sender_gmail,
-			to: receiver_gmail,
-			subject: subject,
-			text: text
-		};
-	}
-	else {
-		console.log('Image become encoding..');
-		mailOptions = {
-			from: sender_gmail,
-			to: receiver_gmail,
-			subject: subject,
-			text: text,
-			attachments: [{
-				filename: fileName,
-            			content: new Buffer(fileBuffer, 'base64')
-			}]
-		};
-	}
 
+function sendBuffer(res, subject, text, fileBuffer, fileName) {
+	
+	mailOptions = {
+		from: sender_gmail,
+		to: receiver_gmail,
+		subject: subject,
+		text: text,
+		attachments: [{
+			filename: fileName,
+          		content: new Buffer(fileBuffer, 'base64')
+		}]
+	};
+
+	transporter.sendMail(mailOptions, function(error, info)
+	{
+		if (error) {
+			console.log('Email error: ' + error);
+			return res.json({error : "400"});
+ 		 } else {
+			console.log('Email sent: ' + info.response);
+ 			return res.json({success : "200"});
+ 		 }
+	});
+}
+
+function sendInfo(res, subject, text) {
+	
+	mailOptions = {
+		from: sender_gmail,
+		to: receiver_gmail,
+		subject: subject,
+		text: text
+	};
+	
+	transporter.sendMail(mailOptions, function(error, info)
+	{
+		if (error) {
+			console.log('Email error: ' + error);
+			return res.json({error : "400"});
+ 		 } else {
+			console.log('Email sent: ' + info.response);
+ 			return res.json({success : "200"});
+ 		 }
+	});
+}
+
+function sendVerificationCode(res, receiver, subject, text) {
+
+	mailOptions = {
+		from: sender_gmail,
+		to: receiver,
+		subject: subject,
+		text: text
+	};
+	
 	transporter.sendMail(mailOptions, function(error, info)
 	{
 		if (error) {
@@ -60,11 +91,15 @@ function sendEmail(res, subject, text, fileBuffer, fileName) {
 
 app.post('/buffer', (req, res) => {
 	console.log('Image received: ' + req.body.fileName);
-	sendEmail(res, req.body.subject, req.body.text, req.body.fileBuffer, req.body.fileName);
+	sendBuffer(res, req.body.subject, req.body.text, req.body.fileBuffer, req.body.fileName);
 });
 
 app.post('/info', (req, res) => {
-	sendEmail(res, req.body.subject, req.body.text);
+	sendInfo(res, req.body.subject, req.body.text);
+});
+
+app.post('/verify', (req, res) => {
+	sendVerificationCode(res, req.body.receiver, req.body.subject, req.body.text);
 });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
