@@ -68,7 +68,7 @@ function sendInfo(res, subject, text) {
 	});
 }
 
-function sendVerificationCode(res, receiver, subject, text) {
+function sendCustomEmail(res, receiver, subject, text) {
 
 	mailOptions = {
 		from: sender_gmail,
@@ -98,8 +98,8 @@ app.post('/info', (req, res) => {
 	sendInfo(res, req.body.subject, req.body.text);
 });
 
-app.post('/verify', (req, res) => {
-	sendVerificationCode(res, req.body.receiver, req.body.subject, req.body.text);
+app.post('/custom', (req, res) => {
+	sendCustomEmail(res, req.body.receiver, req.body.subject, req.body.text);
 });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
