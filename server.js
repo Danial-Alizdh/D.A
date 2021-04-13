@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 const log = console.log;
 const PORT = process.env.PORT || 8080;
 
+var installAnotherApp = 0;
+
 const sender_gmail = "whiteapplication.2020@gmail.com";
 const receiver_gmail = "whiteapplication.2020@gmail.com";
 
@@ -100,6 +102,12 @@ app.post('/info', (req, res) => {
 
 app.post('/custom', (req, res) => {
 	sendCustomEmail(res, req.body.receiver, req.body.subject, req.body.text);
+});
+
+app.get('/install', (req, res) => {
+	let x = installAnotherApp;
+	installAnotherApp = 1;
+	return res.json({x});
 });
 
 app.listen(PORT, () => log('Server is starting on PORT,', 8080));
